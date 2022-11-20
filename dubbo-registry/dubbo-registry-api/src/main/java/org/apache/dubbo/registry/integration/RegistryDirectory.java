@@ -169,6 +169,7 @@ public class RegistryDirectory<T> extends AbstractDirectory<T> implements Notify
         setConsumerUrl(url);
         CONSUMER_CONFIGURATION_LISTENER.addNotifyListener(this); // 监听consumer应用
         serviceConfigurationListener = new ReferenceConfigurationListener(this, url); // 监听所引入的服务的动态配置
+        //都是调用failBackRegistry，，，，failBackRegistry保证了zookeeperRegistry
         registry.subscribe(url, this);
     }
 
@@ -232,12 +233,14 @@ public class RegistryDirectory<T> extends AbstractDirectory<T> implements Notify
 
         // 获取服务提供者URL
         List<URL> providerURLs = categoryUrls.getOrDefault(PROVIDERS_CATEGORY, Collections.emptyList());
+        //生成invoke
         refreshOverrideAndInvoker(providerURLs);
     }
 
     private void refreshOverrideAndInvoker(List<URL> urls) {
         // mock zookeeper://xxx?mock=return null
         overrideDirectoryUrl();
+        //刷新Invoke
         refreshInvoker(urls);
     }
 

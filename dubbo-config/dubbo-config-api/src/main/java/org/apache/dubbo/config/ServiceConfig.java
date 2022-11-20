@@ -392,7 +392,8 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
         return getProtocols().size() == 1 && LOCAL_PROTOCOL.equalsIgnoreCase(getProtocols().get(0).getName());
     }
 
-    public synchronized void export() {
+    public synchronized void  export() {
+        //读取配置
         checkAndUpdateSubConfigs();
 
         // 检查服务是否需要导出
@@ -443,6 +444,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
         if (StringUtils.isEmpty(path)) {
             path = interfaceName;
         }
+        //导出
         doExportUrls();
     }
 

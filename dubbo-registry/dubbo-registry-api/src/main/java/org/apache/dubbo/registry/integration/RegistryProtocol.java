@@ -294,6 +294,7 @@ public class RegistryProtocol implements Protocol {
             // protocol属性的值是哪来的，是在SPI中注入进来的，是一个代理类
             // 这里实际利用的就是DubboProtocol或HttpProtocol去export  NettyServer
             // 为什么需要ExporterChangeableWrapper？方便注销已经被导出的服务
+            //因为这里的providerUrl的Protocol已经是dubbo了所有使用了dubbo
             return new ExporterChangeableWrapper<>((Exporter<T>) protocol.export(invokerDelegate), originInvoker);
         });
     }
@@ -523,6 +524,7 @@ public class RegistryProtocol implements Protocol {
         // 当前所引入的服务的提供者目录：/dubbo/org.apache.dubbo.demo.DemoService/providers
         // 当前所引入的服务的老版本动态配置目录：/dubbo/org.apache.dubbo.demo.DemoService/configurators
         // 当前所引入的服务的老版本路由器目录：/dubbo/org.apache.dubbo.demo.DemoService/routers
+        //第一次会从这里进入生成dubboInvoke
         directory.subscribe(subscribeUrl.addParameter(CATEGORY_KEY,
                 PROVIDERS_CATEGORY + "," + CONFIGURATORS_CATEGORY + "," + ROUTERS_CATEGORY));
 

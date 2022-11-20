@@ -85,6 +85,8 @@ public class HeartbeatHandler extends AbstractChannelHandlerDelegate {
             }
             return;
         }
+        //默认是所有请求都走线程池，所有就是AllChannelHandler
+        //可以看dubbo的线程池模型，就是从这里看
         handler.received(channel, message);
     }
 
@@ -108,7 +110,7 @@ public class HeartbeatHandler extends AbstractChannelHandlerDelegate {
         return message instanceof Request && ((Request) message).isHeartbeat();
     }
 
-    private boolean isHeartbeatResponse(Object message) {
+    private boolean  isHeartbeatResponse(Object message) {
         return message instanceof Response && ((Response) message).isHeartbeat();
     }
 }

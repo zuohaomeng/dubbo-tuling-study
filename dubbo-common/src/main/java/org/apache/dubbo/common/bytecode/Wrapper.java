@@ -23,11 +23,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Matcher;
@@ -115,6 +111,7 @@ public abstract class Wrapper {
 
         Wrapper ret = WRAPPER_MAP.get(c);
         if (ret == null) {
+            //创建字节码
             ret = makeWrapper(c);
             WRAPPER_MAP.put(c, ret);
         }
@@ -256,7 +253,8 @@ public abstract class Wrapper {
         cc.addMethod(c1.toString());
         cc.addMethod(c2.toString());
         cc.addMethod(c3.toString());
-
+        //todo:zuohao：:创建invoke 字节码
+//        System.out.println(c3+"\n\n\n");
         try {
             Class<?> wc = cc.toClass();
             // setup static field.

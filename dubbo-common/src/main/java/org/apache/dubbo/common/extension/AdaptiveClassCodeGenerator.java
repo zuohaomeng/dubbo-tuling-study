@@ -66,7 +66,7 @@ public class AdaptiveClassCodeGenerator {
     private static final String CODE_EXTENSION_METHOD_INVOKE_ARGUMENT = "arg%d";
 
     private final Class<?> type;
-
+    //@SPI的默认名设置
     private String defaultExtName;
 
     public AdaptiveClassCodeGenerator(Class<?> type, String defaultExtName) {
@@ -98,6 +98,7 @@ public class AdaptiveClassCodeGenerator {
         // 遍历接口中的方法，生成代理方法
         Method[] methods = type.getMethods();
         for (Method method : methods) {
+            //生成方法
             code.append(generateMethod(method));
         }
         code.append("}");
@@ -157,6 +158,7 @@ public class AdaptiveClassCodeGenerator {
     private String generateMethod(Method method) {
         String methodReturnType = method.getReturnType().getCanonicalName();
         String methodName = method.getName();
+        //生成方法体
         String methodContent = generateMethodContent(method);
         String methodArgs = generateMethodArguments(method);
         String methodThrows = generateMethodThrows(method);
@@ -211,7 +213,7 @@ public class AdaptiveClassCodeGenerator {
             // 寻找URL
             // 1. 如果当前方法中有URl类型的参数，那么url就是该参数值
             // 2. 如果当前方法中没有URL类型的参数，但是当前方法中有某个类型中的get方法返回了URl类型，那么就调用那个get方法得到一个url对象
-            if (urlTypeIndex != -1) {
+            if (urlTypeIndex != -1) {//传的url
                 // Null Point check
                 code.append(generateUrlNullCheck(urlTypeIndex));
             } else {
@@ -227,7 +229,7 @@ public class AdaptiveClassCodeGenerator {
 
             code.append(generateInvocationArgumentNullCheck(method));
 
-
+            //这里具体获取
             code.append(generateExtNameAssignment(value, hasInvocation));
             // check extName == null?
             code.append(generateExtNameNullCheck(value));
