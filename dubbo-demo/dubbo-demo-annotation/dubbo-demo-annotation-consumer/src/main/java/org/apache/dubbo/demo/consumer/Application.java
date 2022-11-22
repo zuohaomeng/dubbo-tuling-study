@@ -19,11 +19,9 @@
 package org.apache.dubbo.demo.consumer;
 
 import org.apache.dubbo.config.ConsumerConfig;
-import org.apache.dubbo.config.ReferenceConfig;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.apache.dubbo.demo.DemoService;
 import org.apache.dubbo.demo.consumer.comp.DemoServiceComponent;
-import org.apache.dubbo.rpc.service.EchoService;
 import org.springframework.context.annotation.*;
 
 import java.io.IOException;
@@ -37,6 +35,7 @@ public class Application {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ConsumerConfiguration.class);
         context.start();
         DemoService service = context.getBean("demoServiceComponent", DemoServiceComponent.class);
+
         System.out.println("开始调用");
         String hello = service.sayHello("world");
         System.out.println("result :" + hello);
