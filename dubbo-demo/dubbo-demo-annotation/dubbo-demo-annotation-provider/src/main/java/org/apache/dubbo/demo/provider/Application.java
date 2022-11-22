@@ -20,21 +20,24 @@ package org.apache.dubbo.demo.provider;
 
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+
+import java.net.InetAddress;
 
 public class Application {
     public static void main(String[] args) throws Exception {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ProviderConfiguration.class);
         context.start();
 
+        System.out.println(InetAddress.getLocalHost().getHostAddress());
+
         System.in.read();
     }
 
     @Configuration
     @EnableDubbo(scanBasePackages = "org.apache.dubbo.demo.provider")
-    @PropertySource("classpath:/spring/dubbo-provider.properties")   // Enviroment
+    @PropertySource("classpath:/spring/dubbo-provider.properties")
     static class ProviderConfiguration {
 
     }

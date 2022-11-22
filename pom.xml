@@ -150,6 +150,7 @@
         <module>dubbo-configcenter</module>
         <module>dubbo-dependencies</module>
         <module>dubbo-tuling</module>
+        <module>dubbo-zuo</module>
     </modules>
 
     <dependencyManagement>
