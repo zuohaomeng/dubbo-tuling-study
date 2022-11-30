@@ -1,0 +1,4 @@
+apple=org.apache.dubbo.demo.consumer.base.Apple
+banana=org.apache.dubbo.demo.consumer.base.Banana
+sweetFruitWrapper=org.apache.dubbo.demo.consumer.base.SweetFruitWrapper
+colorFruitWrapper=org.apache.dubbo.demo.consumer.base.ColorFruitWrapper

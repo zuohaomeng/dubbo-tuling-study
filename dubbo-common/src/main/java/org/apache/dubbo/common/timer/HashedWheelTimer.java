@@ -439,6 +439,7 @@ public class HashedWheelTimer implements Timer {
             startTimeInitialized.countDown();
 
             do {
+                //获取下一个任务
                 final long deadline = waitForNextTick();
                 if (deadline > 0) {
                     int idx = (int) (tick & mask);
@@ -449,7 +450,7 @@ public class HashedWheelTimer implements Timer {
                     bucket.expireTimeouts(deadline);
                     tick++;
                 }
-            } while (WORKER_STATE_UPDATER.get(HashedWheelTimer.this) == WORKER_STATE_STARTED);
+            } while (WORKER_STATE_UPDATER.get(HashedWheelTimer.this) == WORKER_STATE_STARTED);//如果状态是运行中则一直检测循环超时
 
             // Fill the unprocessedTimeouts so we can return them from stop() method.
             for (HashedWheelBucket bucket : wheel) {

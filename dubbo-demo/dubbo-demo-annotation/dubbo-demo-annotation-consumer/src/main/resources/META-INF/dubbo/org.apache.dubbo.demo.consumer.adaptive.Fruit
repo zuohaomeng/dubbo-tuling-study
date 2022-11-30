@@ -1,0 +1,2 @@
+apple=org.apache.dubbo.demo.consumer.adaptive.Apple
+banana=org.apache.dubbo.demo.consumer.adaptive.Banana

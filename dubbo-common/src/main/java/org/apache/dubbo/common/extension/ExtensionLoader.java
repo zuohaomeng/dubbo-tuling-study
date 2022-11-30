@@ -209,6 +209,7 @@ public class ExtensionLoader<T> {
      */
     public List<T> getActivateExtension(URL url, String[] values, String group) {
         List<T> exts = new ArrayList<>();
+        //根据key获取到URl中的值
         List<String> names = values == null ? new ArrayList<>(0) : Arrays.asList(values);
 
         // 想要获取的filter的名字不包括"-default"
@@ -235,11 +236,11 @@ public class ExtensionLoader<T> {
                 // group表示想要获取的Filter所在的分组，activateGroup表示当前遍历的Filter所在的分组，看是否匹配
                 // names表示想要获取的Filter的名字，name表示当前遍历的Filter的名字
                 // 如果当前遍历的Filter的名字不在想要获取的Filter的names内，并且names中也没有要排除它，则根据url看能否激活
-                if (isMatchGroup(group, activateGroup)
-                        && !names.contains(name)
+                if (isMatchGroup(group, activateGroup)//group要满足
+                        && !names.contains(name)//值中没有当前的类，后面会匹配
                         && !names.contains(REMOVE_VALUE_PREFIX + name)
                         // 查看url的参数中是否存在key为activateValue，并且对应的value不为空
-                        && isActive(activateValue, url)) {
+                        && isActive(activateValue, url)) {//activeValue为空，或者Url中的key有该值
                     exts.add(getExtension(name));
                 }
             }
@@ -744,6 +745,7 @@ public class ExtensionLoader<T> {
 
     private void loadResource(Map<String, Class<?>> extensionClasses, ClassLoader classLoader, java.net.URL resourceURL) {
         try {
+            //解析配置文件中的key=value
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(resourceURL.openStream(), StandardCharsets.UTF_8))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -936,7 +938,7 @@ public class ExtensionLoader<T> {
         // cachedDefaultName表示接口默认的扩展类
         String code = new AdaptiveClassCodeGenerator(type, cachedDefaultName).generate();
         //todo:zuohao：扩展类代码
-//        System.out.println(code+"\n\n");
+        System.out.println(code+"\n\n");
 
         ClassLoader classLoader = findClassLoader();
         org.apache.dubbo.common.compiler.Compiler compiler = ExtensionLoader.getExtensionLoader(org.apache.dubbo.common.compiler.Compiler.class).getAdaptiveExtension();
